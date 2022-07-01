@@ -846,22 +846,6 @@ def mechanic_update_status_view(request,pk):
         return HttpResponseRedirect('/mechanic-work-assigned')
     #return render(request,'vehicle/mechanic_update_status.html',{'updateStatus':updateStatus,'mechanic':mechanic})
     return render(request,'vehicle/mechanic_update_status.html',{'updateStatus':updateStatus,'mechanic':mechanic})
-@login_required(login_url='mechaniclogin2')
-@user_passes_test(is_mechanic2)
-def mechanic_update_status_view2(request,pk):
-    mechanic2=models.Mechanic2.objects.get(user_id=request.user.id)
-    updateStatus=forms.MechanicUpdateStatusForm2()
-    if request.method=='POST':
-        updateStatus=forms.MechanicUpdateStatusForm2(request.POST)
-        if updateStatus.is_valid():
-            enquiry_x=models.Request.objects.get(id=pk)
-            enquiry_x.status=updateStatus.cleaned_data['status']
-            enquiry_x.save()
-        else:
-            print("form is invalid")
-        return HttpResponseRedirect('/mechanic-work-assigned2')
-    #return render(request,'vehicle/mechanic_update_status.html',{'updateStatus':updateStatus,'mechanic':mechanic})
-    return render(request,'vehicle/mechanic_update_status.html',{'updateStatus':updateStatus,'mechanic':mechanic})
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_attendance_view(request):
