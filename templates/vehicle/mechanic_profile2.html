@@ -1,4 +1,4 @@
-{% extends 'vehicle/mechanicbase.html' %}
+{% extends 'vehicle/mechanicbase2.html' %}
 {% load static %}
 {% block content %}
 <head>
@@ -69,16 +69,16 @@
 <div class="center">
   <img style="width:200px; height:200px; margin-left:200px;" src="{%static mechanic.profile_pic.url%}" alt="">
   <div class="w3-panel w3-blue">
-    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Name : {{mechanic}}</b></h3>
-    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Mobile : {{mechanic.mobile}}</b></h3>
-    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Mobile : {{mechanic.work_category}}</b></h3>
-    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Skill : {{mechanic.skill}}</b></h3>
-    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Address : {{mechanic.address}}</b></h3>
+    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Name : {{mechanic2}}</b></h3>
+    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Mobile : {{mechanic2.mobile}}</b></h3>
+    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Mobile : {{mechanic2.work_category}}</b></h3>
+    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Skill : {{mechanic2.skill}}</b></h3>
+    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Address : {{mechanic2.address}}</b></h3>
   </div>
 </div>
 
 <div style="text-align: center;">
-  <a href="/edit-mechanic-profile"><button class="button" ><span>Edit Profile </span></button></a>
+  <a href="/edit-mechanic-profile2"><button class="button" ><span>Edit Profile </span></button></a>
 </div>
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

@@ -79,11 +79,15 @@ urlpatterns = [
     path('mechanic-dashboard', views.mechanic_dashboard_view,name='mechanic-dashboard'),
     path('mechanic-dashboard2', views.mechanic_dashboard_view2,name='mechanic-dashboard2'),
     path('mechanic-work-assigned', views.mechanic_work_assigned_view,name='mechanic-work-assigned'),
+     path('mechanic-work-assigned2', views.mechanic_work_assigned_view2,name='mechanic-work-assigned2'),
     path('mechanic-update-status/<int:pk>', views.mechanic_update_status_view,name='mechanic-update-status'),
+    path('mechanic-update-status2/<int:pk>', views.mechanic_update_status_view2,name='mechanic-update-status2'),
     path('mechanic-feedback', views.mechanic_feedback_view,name='mechanic-feedback'),
     path('mechanic-salary', views.mechanic_salary_view,name='mechanic-salary'),
     path('mechanic-profile', views.mechanic_profile_view,name='mechanic-profile'),
+    path('mechanic-profile2', views.mechanic_profile_view2,name='mechanic-profile2'),
     path('edit-mechanic-profile', views.edit_mechanic_profile_view,name='edit-mechanic-profile'),
+    path('edit-mechanic-profile2', views.edit_mechanic_profile_view2,name='edit-mechanic-profile2'),
 
     path('mechanic-attendance', views.mechanic_attendance_view,name='mechanic-attendance'),
 
@@ -107,4 +111,9 @@ urlpatterns = [
 
     path('aboutus', views.aboutus_view),
     path('contactus', views.contactus_view),
+    #path('kommunicate', views.kommunicate,name='kommunicate'),
+
+    path('pinsearch',views.pinsearch,name='pinsearch'),
+    path('pinsearch2',views.pinsearch2,name='pinsearch2'),
+
 ]

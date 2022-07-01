@@ -8,6 +8,7 @@ from django.conf import settings
 from django.db.models import Q
 from django.contrib.messages import constants as messages
 from .models import Mechanic2
+from .models import Request
 def home_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
@@ -60,6 +61,27 @@ def customer_signup_view(request):
             my_customer_group[0].user_set.add(user)
         return HttpResponseRedirect('customerlogin')
     return render(request,'vehicle/customersignup.html',context=mydict)
+
+def pinsearch(request):
+    if request.method =="POST":
+        data = request.POST
+        pin = request.POST['pincode']
+        j = str(pin)
+        myuser = Request.objects.filter(vehicle_brand=j)
+        print("ok")
+        return render(request,'vehicle/mechanic_work_assigned_search.html',{'myuser':myuser})
+def pinsearch2(request):
+    if request.method =="POST":
+        data = request.POST
+        pin = request.POST['pincode2']
+        j = str(pin)
+        myuser = Request.objects.filter(vehicle_brand=j)
+        print("ok")
+        return render(request,'vehicle/mechanic_work_assigned_search2.html',{'myuser':myuser})
+        
+    else:
+        print("not ok")
+        return render(request,'vehicle/adminbase.html')
 
 
 def mechanic_signup_view(request):
@@ -655,6 +677,14 @@ def customer_view_request_view(request):
     enquiries=models.Request.objects.all().filter(customer_id=customer.id , status="Pending")
     return render(request,'vehicle/customer_view_request.html',{'customer':customer,'enquiries':enquiries})
 
+# @login_required(login_url='adminlogin')
+# @user_passes_test(is_admin)
+# def kommunicate(request):
+#     customer=models.Customer.objects.get(user_id=request.user.id)
+#     enquiries=models.Request.objects.all().filter(customer_id=customer.id , status="Pending")
+#     return render(request,'vehicle/customer_view_request.html',{'customer':customer,'enquiries':enquiries})
+
+
 
 @login_required(login_url='customerlogin')
 @user_passes_test(is_customer)
@@ -763,26 +793,42 @@ def customer_feedback_view(request):
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_dashboard_view(request):
-    mechanic=models.Mechanic.objects.get(user_id=request.user.id)
-    work_in_progress=models.Request.objects.all().filter(mechanic_id=mechanic.id,status='Repairing').count()
-    work_completed=models.Request.objects.all().filter(mechanic_id=mechanic.id,status='Repairing Done').count()
-    new_work_assigned=models.Request.objects.all().filter(mechanic_id=mechanic.id,status='Approved').count()
+    mechanic2=models.Mechanic.objects.get(user_id=request.user.id)
+    #enquiry=models.Request.objects.all().order_by('-id')
+    enquiry=models.Request.objects.filter(category="KSEB").order_by('-id')
+    customers=[]
+    for enq in enquiry:
+        #customer=models.Customer.objects.get(id=enq.customer_id)
+        customer=models.Customer.objects.get(id=enq.customer_id)
+        customers.append(customer)
+    # work_in_progress=models.Request.objects.all().filter(mechanic2_id=mechanic2.id,status='Repairing').count()
+    # work_completed=models.Request.objects.all().filter(mechanic2_id=mechanic2.id,status='Repairing Done').count()
+    # new_work_assigned=models.Request.objects.all().filter(mechanic2_id=mechanic2.id,status='Approved').count()
     dict={
-    'work_in_progress':work_in_progress,
-    'work_completed':work_completed,
-    'new_work_assigned':new_work_assigned,
-    'salary':mechanic.salary,
-    'mechanic':mechanic,
-    }
+     'data':zip(customers,enquiry),
+    # 'work_completed':work_completed,
+    # 'new_work_assigned':new_work_assigned,
+    # 'salary':mechanic2.salary,
+    # 'mechanic2':mechanic2,
+     }
+    #context=dict
     return render(request,'vehicle/mechanic_dashboard.html',context=dict)
 
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_work_assigned_view(request):
     mechanic=models.Mechanic.objects.get(user_id=request.user.id)
-    works=models.Request.objects.all().filter(mechanic_id=mechanic.id)
+    #works=models.Request.objects.all().filter(mechanic_id=mechanic.id)
+    works=models.Request.objects.all().filter(category="KSEB")
     return render(request,'vehicle/mechanic_work_assigned.html',{'works':works,'mechanic':mechanic})
 
+@login_required(login_url='mechaniclogin2')
+@user_passes_test(is_mechanic2)
+def mechanic_work_assigned_view2(request):
+    mechanic2=models.Mechanic2.objects.get(user_id=request.user.id)
+    #works=models.Request.objects.all().filter(mechanic_id=mechanic.id)
+    works=models.Request.objects.all().filter(category="Water authority")
+    return render(request,'vehicle/mechanic_work_assigned2.html',{'works':works,'mechanic2':mechanic2})
 
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
@@ -798,8 +844,24 @@ def mechanic_update_status_view(request,pk):
         else:
             print("form is invalid")
         return HttpResponseRedirect('/mechanic-work-assigned')
+    #return render(request,'vehicle/mechanic_update_status.html',{'updateStatus':updateStatus,'mechanic':mechanic})
     return render(request,'vehicle/mechanic_update_status.html',{'updateStatus':updateStatus,'mechanic':mechanic})
-
+@login_required(login_url='mechaniclogin2')
+@user_passes_test(is_mechanic2)
+def mechanic_update_status_view2(request,pk):
+    mechanic2=models.Mechanic2.objects.get(user_id=request.user.id)
+    updateStatus=forms.MechanicUpdateStatusForm2()
+    if request.method=='POST':
+        updateStatus=forms.MechanicUpdateStatusForm2(request.POST)
+        if updateStatus.is_valid():
+            enquiry_x=models.Request.objects.get(id=pk)
+            enquiry_x.status=updateStatus.cleaned_data['status']
+            enquiry_x.save()
+        else:
+            print("form is invalid")
+        return HttpResponseRedirect('/mechanic-work-assigned2')
+    #return render(request,'vehicle/mechanic_update_status.html',{'updateStatus':updateStatus,'mechanic':mechanic})
+    return render(request,'vehicle/mechanic_update_status.html',{'updateStatus':updateStatus,'mechanic':mechanic})
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_attendance_view(request):
@@ -838,6 +900,12 @@ def mechanic_profile_view(request):
     mechanic=models.Mechanic.objects.get(user_id=request.user.id)
     return render(request,'vehicle/mechanic_profile.html',{'mechanic':mechanic})
 
+@login_required(login_url='mechaniclogin2')
+@user_passes_test(is_mechanic2)
+def mechanic_profile_view2(request):
+    mechanic2=models.Mechanic2.objects.get(user_id=request.user.id)
+    return render(request,'vehicle/mechanic_profile2.html',{'mechanic2':mechanic2})
+
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def edit_mechanic_profile_view(request):
@@ -857,6 +925,28 @@ def edit_mechanic_profile_view(request):
             return redirect('mechanic-profile')
     return render(request,'vehicle/edit_mechanic_profile.html',context=mydict)
 
+@login_required(login_url='mechaniclogin2')
+@user_passes_test(is_mechanic2)
+def edit_mechanic_profile_view2(request):
+    mechanic2=models.Mechanic2.objects.get(user_id=request.user.id)
+    user=models.User.objects.get(id=mechanic2.user_id)
+    userForm=forms.MechanicUserForm2(instance=user)
+    mechanicForm2=forms.MechanicForm2(request.FILES,instance=mechanic2)
+    mydict={'userForm':userForm,'mechanicForm2':mechanicForm2,'mechanic2':mechanic2}
+    if request.method=='POST':
+        userForm=forms.MechanicUserForm2(request.POST,instance=user)
+        mechanicForm2=forms.MechanicForm2(request.POST,request.FILES,instance=mechanic2)
+        if userForm.is_valid() and mechanicForm2.is_valid():
+            user=userForm.save()
+            user.set_password(user.password)
+            user.save()
+            mechanicForm2.save()
+            print("formok")
+            return redirect('mechanic-profile2')
+        print("form not ok")
+    return render(request,'vehicle/edit_mechanic_profile2.html',context=mydict)
+
+
 #============================================================================================
 # MECHANIC2 RELATED views start
 #============================================================================================
@@ -865,9 +955,11 @@ def edit_mechanic_profile_view(request):
 @user_passes_test(is_mechanic2)
 def mechanic_dashboard_view2(request):
     mechanic2=models.Mechanic2.objects.get(user_id=request.user.id)
-    enquiry=models.Request.objects.all().order_by('-id')
+    #enquiry=models.Request.objects.all().order_by('-id')
+    enquiry=models.Request.objects.filter(category="Water authority").order_by('-id')
     customers=[]
     for enq in enquiry:
+        #customer=models.Customer.objects.get(id=enq.customer_id)
         customer=models.Customer.objects.get(id=enq.customer_id)
         customers.append(customer)
     # work_in_progress=models.Request.objects.all().filter(mechanic2_id=mechanic2.id,status='Repairing').count()
@@ -883,12 +975,12 @@ def mechanic_dashboard_view2(request):
     #context=dict
     return render(request,'vehicle/mechanic_dashboard2.html',context=dict)
 
-@login_required(login_url='mechaniclogin2')
-@user_passes_test(is_mechanic2)
-def mechanic_work_assigned_view2(request):
-    mechanic2=models.Mechanic2.objects.get(user_id=request.user.id)
-    works=models.Request.objects.all().filter(mechanic2_id=mechanic2.id)
-    return render(request,'vehicle/mechanic_work_assigned2.html',{'works':works,'mechanic2':mechanic2})
+# @login_required(login_url='mechaniclogin2')
+# @user_passes_test(is_mechanic2)
+# def mechanic_work_assigned_view2(request):
+#     mechanic2=models.Mechanic2.objects.get(user_id=request.user.id)
+#     works=models.Request.objects.all().filter(mechanic2_id=mechanic2.id)
+#     return render(request,'vehicle/mechanic_work_assigned2.html',{'works':works,'mechanic2':mechanic2})
 
 
 @login_required(login_url='mechaniclogin2')
@@ -945,24 +1037,6 @@ def mechanic_profile_view(request):
     mechanic=models.Mechanic.objects.get(user_id=request.user.id)
     return render(request,'vehicle/mechanic_profile2.html',{'mechanic2':mechanic2})
 
-@login_required(login_url='mechaniclogin2')
-@user_passes_test(is_mechanic)
-def edit_mechanic_profile_view2(request):
-    mechanic2=models.Mechanic2.objects.get(user_id=request.user.id)
-    user=models.User.objects.get(id=mechanic.user_id)
-    userForm=forms.MechanicUserForm2(instance=user)
-    mechanicForm2=forms.MechanicForm2(request.FILES,instance=mechanic2)
-    mydict={'userForm':userForm,'mechanicForm':mechanicForm2,'mechanic2':mechanic2}
-    if request.method=='POST':
-        userForm=forms.MechanicUserForm2(request.POST,instance=user)
-        mechanicForm2=forms.MechanicForm2(request.POST,request.FILES,instance=mechanic2)
-        if userForm.is_valid() and mechanicForm2.is_valid():
-            user=userForm.save()
-            user.set_password(user.password)
-            user.save()
-            mechanicForm2.save()
-            return redirect('mechanic-profile2')
-    return render(request,'vehicle/edit_mechanic_profile2.html',context=mydict)
 
 
 

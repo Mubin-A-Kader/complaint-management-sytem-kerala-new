@@ -43,23 +43,40 @@
 					<p>Salary</p>
 				</div>
 			</div>
-		</div><br><br><br><br>
-		<marquee behavior="scroll" direction="left">
-		 <img src="{% static "images/ferrari.png" %}" width="120" height="80" alt="ferrari" />
-			<img src="{% static "images/ford.png" %}" width="120" height="80" alt="ford" />
-		 <img src="{% static "images/lambo.png" %}" width="120" height="80" alt="lambo" />
-		 <img src="{% static "images/mahindra.png" %}" width="120" height="80" alt="mahindra" />
-		 <img src="{% static "images/tvs.png" %}" width="120" height="80" alt="tvs" />
-		 <img src="{% static "images/tata.png" %}" width="120" height="80" alt="tata" />
-		 <img src="{% static "images/hero.png" %}" width="120" height="80" alt="hero" />
-		 <img src="{% static "images/rolls.png" %}" width="120" height="80" alt="rolls" />
-		 <img src="{% static "images/suzuki.png" %}" width="120" height="80" alt="suzuki" />
-	 </marquee>
-	 <br><br><br><br><br><br><br><br><br><br><br><br>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>Customer Name</th>
+					<th>District</th>
+					<th>Category</th>
+					<th>House Number</th>
+					<th>Pincode</th>
+					<th>Problem Description</th>
+					<th>Update Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for c,r in data %}
+				<tr>
+					<td> {{c.get_name}}</td>
+					<td> {{r.vehicle_category}}</td>
+					<td>{{r.category}}</td>
+					<td>{{r.vehicle_model}}</td>
+					<td>{{r.vehicle_brand}}</td>
+					<td>{{r.problem_description}}</td>
+					<td>{{r.status}}</td>
+					<td><a  style="color:blue; text-decoration:none;font-size:25px;" href="{% url 'mechanic-update-status' r.id  %}">&#9998;</a></td>
+				</tr>
+				{% endfor %}
+		
+			</tbody>
+		</table>
 		</div>
 
 
 <!-- ****** cards end ********** -->
+
 
 
 	<!-- end main content -->

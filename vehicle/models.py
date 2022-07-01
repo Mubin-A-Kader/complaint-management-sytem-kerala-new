@@ -22,6 +22,8 @@ class Mechanic(models.Model):
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20,null=False)
     skill = models.CharField(max_length=500,null=True)
+    dis=(('Alappuzha','Alappuzha'),('Wayanad','Wayanad'),('Ernakulam','Ernakulam'),('Thrissur','Thrissur'),('Thiruvananthapuram','Thiruvananthapuram'),('Pathanamthitta','Pathanamthitta'),('Palakkad','Palakkad'),('Malappuram','Malappuram'),('Kozhikode','Kozhikode'),('Kottayam','Kottayam'),('Kollam','Kollam'),('Kasaragod','Kasaragod'),('Kannur','Kannur'),('Idukki','Idukki'))
+    district = models.CharField(max_length=50,choices=dis)
     salary=models.PositiveIntegerField(null=True)
     status=models.BooleanField(default=False)
     work_name = (('KSEB','KSEB'),('Other','Other'))
@@ -38,7 +40,7 @@ class Mechanic(models.Model):
 
 class Mechanic2(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    profile_pic= models.ImageField(upload_to='profile_pic/MechanicProfilePic/',null=True,blank=True)
+    profile_pic= models.ImageField(upload_to='profile_pic/MechanicProfilePic2/',null=True)
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20,null=False)
     skill = models.CharField(max_length=500,null=True)

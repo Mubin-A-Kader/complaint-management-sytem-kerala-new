@@ -31,10 +31,13 @@
 		</ul>
 		<!-- end nav left -->
 		<!-- form -->
-		<form class="navbar-search">
-			<input type="text" name="Search" class="navbar-search-input" placeholder="What you looking for...">
-			<i class="fas fa-search"></i>
+		<form method="post" action="/pinsearch">
+			{%csrf_token%}
+			<input type="text" name="pincode" placeholder="pincode search">
+			<input type="submit" placeholder="submit">
 		</form>
+
+		
 		<!-- end form -->
 		<!-- nav right -->
 		<ul class="navbar-nav nav-right">
