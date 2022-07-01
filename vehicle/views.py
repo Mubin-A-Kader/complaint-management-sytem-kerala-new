@@ -763,24 +763,33 @@ def customer_feedback_view(request):
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_dashboard_view(request):
-    mechanic=models.Mechanic.objects.get(user_id=request.user.id)
-    work_in_progress=models.Request.objects.all().filter(mechanic_id=mechanic.id,status='Repairing').count()
-    work_completed=models.Request.objects.all().filter(mechanic_id=mechanic.id,status='Repairing Done').count()
-    new_work_assigned=models.Request.objects.all().filter(mechanic_id=mechanic.id,status='Approved').count()
+    mechanic2=models.Mechanic.objects.get(user_id=request.user.id)
+    #enquiry=models.Request.objects.all().order_by('-id')
+    enquiry=models.Request.objects.filter(category="KSEB").order_by('-id')
+    customers=[]
+    for enq in enquiry:
+        #customer=models.Customer.objects.get(id=enq.customer_id)
+        customer=models.Customer.objects.get(id=enq.customer_id)
+        customers.append(customer)
+    # work_in_progress=models.Request.objects.all().filter(mechanic2_id=mechanic2.id,status='Repairing').count()
+    # work_completed=models.Request.objects.all().filter(mechanic2_id=mechanic2.id,status='Repairing Done').count()
+    # new_work_assigned=models.Request.objects.all().filter(mechanic2_id=mechanic2.id,status='Approved').count()
     dict={
-    'work_in_progress':work_in_progress,
-    'work_completed':work_completed,
-    'new_work_assigned':new_work_assigned,
-    'salary':mechanic.salary,
-    'mechanic':mechanic,
-    }
+     'data':zip(customers,enquiry),
+    # 'work_completed':work_completed,
+    # 'new_work_assigned':new_work_assigned,
+    # 'salary':mechanic2.salary,
+    # 'mechanic2':mechanic2,
+     }
+    #context=dict
     return render(request,'vehicle/mechanic_dashboard.html',context=dict)
 
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_work_assigned_view(request):
     mechanic=models.Mechanic.objects.get(user_id=request.user.id)
-    works=models.Request.objects.all().filter(mechanic_id=mechanic.id)
+    #works=models.Request.objects.all().filter(mechanic_id=mechanic.id)
+    works=models.Request.objects.all().filter(category="KSEB")
     return render(request,'vehicle/mechanic_work_assigned.html',{'works':works,'mechanic':mechanic})
 
 
@@ -798,6 +807,7 @@ def mechanic_update_status_view(request,pk):
         else:
             print("form is invalid")
         return HttpResponseRedirect('/mechanic-work-assigned')
+    #return render(request,'vehicle/mechanic_update_status.html',{'updateStatus':updateStatus,'mechanic':mechanic})
     return render(request,'vehicle/mechanic_update_status.html',{'updateStatus':updateStatus,'mechanic':mechanic})
 
 @login_required(login_url='mechaniclogin')
@@ -865,9 +875,11 @@ def edit_mechanic_profile_view(request):
 @user_passes_test(is_mechanic2)
 def mechanic_dashboard_view2(request):
     mechanic2=models.Mechanic2.objects.get(user_id=request.user.id)
-    enquiry=models.Request.objects.all().order_by('-id')
+    #enquiry=models.Request.objects.all().order_by('-id')
+    enquiry=models.Request.objects.filter(category="Water authority").order_by('-id')
     customers=[]
     for enq in enquiry:
+        #customer=models.Customer.objects.get(id=enq.customer_id)
         customer=models.Customer.objects.get(id=enq.customer_id)
         customers.append(customer)
     # work_in_progress=models.Request.objects.all().filter(mechanic2_id=mechanic2.id,status='Repairing').count()
