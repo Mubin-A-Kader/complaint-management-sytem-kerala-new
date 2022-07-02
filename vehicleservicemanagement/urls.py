@@ -40,6 +40,9 @@ urlpatterns = [
 
     path('admin-request', views.admin_request_view,name='admin-request'),
     path('admin-view-request',views.admin_view_request_view,name='admin-view-request'),
+    path('admin-view-request2',views.admin_view_request_view2,name='admin-view-request2'),
+    path('mechanic-view-request',views.mechanic_view_request_view,name='mechanic-view-request'),
+    path('mechanic-view-request2',views.mechanic_view_request_view2,name='mechanic-view-request2'),
     path('change-status/<int:pk>', views.change_status_view,name='change-status'),
     path('admin-delete-request/<int:pk>', views.admin_delete_request_view,name='admin-delete-request'),
     path('admin-add-request',views.admin_add_request_view,name='admin-add-request'),
@@ -83,6 +86,7 @@ urlpatterns = [
     path('mechanic-update-status/<int:pk>', views.mechanic_update_status_view,name='mechanic-update-status'),
     path('mechanic-update-status2/<int:pk>', views.mechanic_update_status_view2,name='mechanic-update-status2'),
     path('mechanic-feedback', views.mechanic_feedback_view,name='mechanic-feedback'),
+    path('mechanic-feedback2', views.mechanic_feedback_view2,name='mechanic-feedback2'),
     path('mechanic-salary', views.mechanic_salary_view,name='mechanic-salary'),
     path('mechanic-profile', views.mechanic_profile_view,name='mechanic-profile'),
     path('mechanic-profile2', views.mechanic_profile_view2,name='mechanic-profile2'),
@@ -115,5 +119,8 @@ urlpatterns = [
 
     path('pinsearch',views.pinsearch,name='pinsearch'),
     path('pinsearch2',views.pinsearch2,name='pinsearch2'),
+
+    path('consumesearch',views.consumesearch,name='consumesearch'),
+    path('consumesearch2',views.consumesearch2,name='consumesearch2'),
 
 ]

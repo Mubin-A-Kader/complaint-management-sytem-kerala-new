@@ -24,8 +24,8 @@
 
                   <th>Problem Description</th>
                   <th>Status</th>
-                  <th>Change Status</th>
-                  <th>Delete</th>
+                  <!-- <th>Change Status</th>
+                  <th>Delete</th> -->
                 </tr>
 							</thead>
 							<tbody>
@@ -40,8 +40,8 @@
                   <td>{{r.problem_description}}</td>
                   <td>{{r.status}}</td>
 
-                  <td><a  style="color:red; text-decoration:none;font-size:25px;" href="{% url 'change-status' r.id  %}">&#9998;</a></td>
-                  <td><a style="color:blue; text-decoration:none;font-size:25px;"href="{% url 'admin-delete-request' r.id  %}">&#10008;</a></td>
+                  <!-- <td><a  style="color:red; text-decoration:none;font-size:25px;" href="{% url 'change-status' r.id  %}">&#9998;</a></td>
+                  <td><a style="color:blue; text-decoration:none;font-size:25px;"href="{% url 'admin-delete-request' r.id  %}">&#10008;</a></td> -->
                 </tr>
                 {% endfor %}
 

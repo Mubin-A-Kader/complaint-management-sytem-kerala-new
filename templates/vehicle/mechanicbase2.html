@@ -31,11 +31,11 @@
 		</ul>
 		<!-- end nav left -->
 		<!-- form -->
-		<form method="post" action="/pinsearch2">
+		<!-- <form method="post" action="/pinsearch2">
 			{%csrf_token%}
 			<input type="text" name="pincode2" placeholder="pincode search">
 			<input type="submit" placeholder="submit">
-		</form>
+		</form> -->
 		<!-- end form -->
 		<!-- nav right -->
 		<ul class="navbar-nav nav-right">
@@ -94,7 +94,14 @@
 					</span>
 				</a>
 			</li>
-
+			<li  class="sidebar-nav-item">
+				<a href="/mechanic-view-request2" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-calendar-week"></i>
+					</div>
+					<span>complaint based on pincode ,location,consumer number</span>
+				</a>
+			</li>
 			<li  class="sidebar-nav-item">
 				<a href="/mechanic-work-assigned2" class="sidebar-nav-link">
 					<div>
@@ -104,23 +111,24 @@
 				</a>
 			</li>
 
-			<li  class="sidebar-nav-item">
+
+			<!-- <li  class="sidebar-nav-item">
 				<a href="/mechanic-salary2" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-rupee-sign"></i>
 					</div>
 					<span>Salary</span>
 				</a>
-			</li>
+			</li> -->
 
-			<li  class="sidebar-nav-item">
+			<!-- <li  class="sidebar-nav-item">
 				<a href="/mechanic-attendance2" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-calendar-week"></i>
 					</div>
 					<span>Attendance</span>
 				</a>
-			</li>
+			</li> -->
 
 			<li  class="sidebar-nav-item">
 				<a href="/mechanic-feedback2" class="sidebar-nav-link">

@@ -32,14 +32,14 @@
 		<!-- end nav left -->
 		<!-- form -->
 		
-		<form method="post" action="{% url 'search' %}">
+		<!-- <form method="post" action="{% url 'search' %}">
 			{% csrf_token %}
 			<label for="vehicle_category">District</label>
 		
 			<input type="text" id="district" name="district"><br><br>
 			<br>
 			<input type="submit" value="Submit">
-		 </form>
+		 </form> -->
 		 
 	
       
@@ -129,18 +129,17 @@
 					<div>
 						<i class="fas fa-spinner"></i>
 					</div>
-					<span>Request</span>
+					<span>Request Department Wise View</span>
 				</a>
 			</li>
-
-			<li  class="sidebar-nav-item">
+			<!-- <li  class="sidebar-nav-item">
 				<a href="/admin-report" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-coins"></i>
 					</div>
 					<span>Report</span>
 				</a>
-			</li>
+			</li> -->
 
 			<li  class="sidebar-nav-item">
 				<a href="/admin-feedback" class="sidebar-nav-link">
@@ -182,7 +181,8 @@
 
 
 
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+	{% include "vehicle/footer.html" %}
 
 	<!-- import script -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>

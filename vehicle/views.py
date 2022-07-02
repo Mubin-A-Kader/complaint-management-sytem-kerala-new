@@ -67,21 +67,39 @@ def pinsearch(request):
         data = request.POST
         pin = request.POST['pincode']
         j = str(pin)
-        myuser = Request.objects.filter(vehicle_brand=j)
+        myuser = Request.objects.filter(vehicle_brand=j,category="KSEB")
         print("ok")
         return render(request,'vehicle/mechanic_work_assigned_search.html',{'myuser':myuser})
+
 def pinsearch2(request):
     if request.method =="POST":
         data = request.POST
         pin = request.POST['pincode2']
         j = str(pin)
-        myuser = Request.objects.filter(vehicle_brand=j)
+        myuser = Request.objects.filter(vehicle_brand=j,category="Water authority")
         print("ok")
         return render(request,'vehicle/mechanic_work_assigned_search2.html',{'myuser':myuser})
         
     else:
         print("not ok")
         return render(request,'vehicle/adminbase.html')
+def consumesearch(request):
+    if request.method =="POST":
+        data = request.POST
+        pin = request.POST['consumernumber']
+        j = str(pin)
+        myuser = Request.objects.filter(vehicle_no=j,category="KSEB")
+        print("ok")
+        return render(request,'vehicle/mechanic_work_assigned_search.html',{'myuser':myuser})
+
+def consumesearch2(request):
+    if request.method =="POST":
+        data = request.POST
+        pin = request.POST['consumernumber2']
+        j = str(pin)
+        myuser = Request.objects.filter(vehicle_no=j,category="Water authority")
+        print("ok")
+        return render(request,'vehicle/mechanic_work_assigned_search2.html',{'myuser':myuser})
 
 
 def mechanic_signup_view(request):
@@ -473,13 +491,40 @@ def admin_request_view(request):
 
 @login_required(login_url='adminlogin')
 def admin_view_request_view(request):
-    enquiry=models.Request.objects.all().order_by('-id')
+    enquiry=models.Request.objects.filter(category="KSEB").order_by('-id')
     customers=[]
     for enq in enquiry:
         customer=models.Customer.objects.get(id=enq.customer_id)
         customers.append(customer)
     return render(request,'vehicle/admin_view_request.html',{'data':zip(customers,enquiry)})
 
+
+@login_required(login_url='adminlogin')
+def admin_view_request_view2(request):
+    enquiry=models.Request.objects.filter(category="Water authority").order_by('-id')
+    customers=[]
+    for enq in enquiry:
+        customer=models.Customer.objects.get(id=enq.customer_id)
+        customers.append(customer)
+    return render(request,'vehicle/admin_view_request.html',{'data':zip(customers,enquiry)})
+
+@login_required(login_url='mechaniclogin')
+def mechanic_view_request_view(request):
+    enquiry=models.Request.objects.filter(category="KSEB").order_by('-id')
+    customers=[]
+    for enq in enquiry:
+        customer=models.Customer.objects.get(id=enq.customer_id)
+        customers.append(customer)
+    return render(request,'vehicle/mechanic_view_request.html',{'data':zip(customers,enquiry)})
+
+@login_required(login_url='mechaniclogin2')
+def mechanic_view_request_view2(request):
+    enquiry=models.Request.objects.filter(category="Water authority").order_by('-id')
+    customers=[]
+    for enq in enquiry:
+        customer=models.Customer.objects.get(id=enq.customer_id)
+        customers.append(customer)
+    return render(request,'vehicle/mechanic_view_request2.html',{'data':zip(customers,enquiry)})
 
 @login_required(login_url='adminlogin')
 def change_status_view(request,pk):
@@ -751,7 +796,10 @@ def edit_customer_profile_view(request):
             user.set_password(user.password)
             user.save()
             customerForm.save()
-            return HttpResponseRedirect('customer-profile')
+            print("formok")
+            #return HttpResponseRedirect('customer-profile')
+            return render(request,'vehicle/customer_profile.html',context=mydict)
+        print("form  not  ok")
     return render(request,'vehicle/edit_customer_profile.html',context=mydict)
 
 
@@ -981,8 +1029,8 @@ def mechanic_update_status_view2(request,pk):
             enquiry_x.save()
         else:
             print("form is invalid")
-        return HttpResponseRedirect('/mechanic-work-assigned')
-    return render(request,'vehicle/mechanic_update_status.html',{'updateStatus':updateStatus,'mechanic2':mechani2c})
+        return HttpResponseRedirect('/mechanic-work-assigned2')
+    return render(request,'vehicle/mechanic_update_status2.html',{'updateStatus':updateStatus,'mechanic2':mechanic2})
 
 @login_required(login_url='mechaniclogin2')
 @user_passes_test(is_mechanic2)
@@ -998,7 +1046,7 @@ def mechanic_attendance_view2(request):
 @login_required(login_url='mechaniclogin2')
 @user_passes_test(is_mechanic2)
 def mechanic_feedback_view2(request):
-    mechanic=models.Mechanic.objects.get(user_id=request.user.id)
+    mechanic2=models.Mechanic2.objects.get(user_id=request.user.id)
     feedback=forms.FeedbackForm()
     if request.method=='POST':
         feedback=forms.FeedbackForm(request.POST)
@@ -1006,7 +1054,7 @@ def mechanic_feedback_view2(request):
             feedback.save()
         else:
             print("form is invalid")
-        return render(request,'vehicle/feedback_sent.html',{'mechanic2':mechanic2})
+        return render(request,'vehicle/feedback_sent2.html',{'mechanic2':mechanic2})
     return render(request,'vehicle/mechanic_feedback2.html',{'feedback':feedback,'mechanic2':mechanic2})
 
 @login_required(login_url='mechaniclogin2')
