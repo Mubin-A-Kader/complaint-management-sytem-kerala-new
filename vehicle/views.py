@@ -906,7 +906,7 @@ def edit_mechanic_profile_view(request):
             user.set_password(user.password)
             user.save()
             mechanicForm.save()
-            return redirect('mechanic-profile')
+            return redirect('mechanic-dashboard')
     return render(request,'vehicle/edit_mechanic_profile.html',context=mydict)
 
 @login_required(login_url='mechaniclogin2')
@@ -920,13 +920,14 @@ def edit_mechanic_profile_view2(request):
     if request.method=='POST':
         userForm=forms.MechanicUserForm2(request.POST,instance=user)
         mechanicForm2=forms.MechanicForm2(request.POST,request.FILES,instance=mechanic2)
+        print(mechanicForm2)
         if userForm.is_valid() and mechanicForm2.is_valid():
             user=userForm.save()
             user.set_password(user.password)
             user.save()
             mechanicForm2.save()
             print("formok")
-            return redirect('mechanic-profile2')
+            return redirect('mechanic-dashboard2')
         print("form not ok")
     return render(request,'vehicle/edit_mechanic_profile2.html',context=mydict)
 
@@ -1015,13 +1016,17 @@ def mechanic_salary_view2(request):
     workdone=models.Request.objects.all().filter(mechanic2_id=mechanic2.id).filter(Q(status="Repairing Done") | Q(status="Released"))
     return render(request,'vehicle/mechanic_salary.html',{'workdone':workdone,'mechanic2':mechanic2})
 
-@login_required(login_url='mechaniclogin2')
-@user_passes_test(is_mechanic)
-def mechanic_profile_view(request):
-    mechanic=models.Mechanic.objects.get(user_id=request.user.id)
-    return render(request,'vehicle/mechanic_profile2.html',{'mechanic2':mechanic2})
+# @login_required(login_url='mechaniclogin')
+# @user_passes_test(is_mechanic)
+# def mechanic_profile_view(request):
+#     mechanic=models.Mechanic.objects.get(user_id=request.user.id)
+#     return render(request,'vehicle/mechanic_profile2.html',{'mechanic':mechanic})
 
-
+# @login_required(login_url='mechaniclogin2')
+# @user_passes_test(is_mechanic2)
+# def mechanic_profile_view2(request):
+#     mechanic2=models.Mechanic2.objects.get(user_id=request.user.id)
+#     return render(request,'vehicle/mechanic_profile2.html',{'mechanic2':mechanic2})
 
 
 #============================================================================================
