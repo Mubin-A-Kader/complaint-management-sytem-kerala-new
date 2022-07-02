@@ -1,0 +1,1 @@
+web: gunicorn vehicleservicemanagement.wsgi --log-file -
