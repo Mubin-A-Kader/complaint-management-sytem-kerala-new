@@ -76,7 +76,7 @@ def pinsearch2(request):
         data = request.POST
         pin = request.POST['pincode2']
         j = str(pin)
-        myuser = Request.objects.filter(vehicle_brand=j,category="Water authority")
+        myuser = Request.objects.filter(problem_description=j,category="Water authority")
         print("ok")
         return render(request,'vehicle/mechanic_work_assigned_search2.html',{'myuser':myuser})
         
