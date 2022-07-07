@@ -15,10 +15,16 @@
 
 						<form method="post" action="/pinsearch2">
 							{%csrf_token%}
-							<input type="text" name="pincode2" placeholder="problem search">
+							<input type="text" name="pincode2" list="pincodes">
+							<datalist id="pincodes" >
+								
+								<option value="water leak">
+								<option value="water shortage">
+								<option value="water change related">
+								<option value="sewerage complaints"></option>
+							  </datalist>
 							<input type="submit" placeholder="Search">
 						</form> 
-
 
 					</div>
 					<div class="card-content">

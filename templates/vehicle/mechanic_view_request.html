@@ -13,17 +13,22 @@
 						</h3>
 
 
-						<form method="post" action="/pinsearch">
+						<form method="post" action="/pinsearch2">
 							{%csrf_token%}
-							<input type="text" name="pincode" placeholder="pincode search">
+							<datalist id="pincode" name="pincode">
+								<option value="water leak">
+								<option value="water shortage">
+								<option value="water change related">
+								<option value="sewerage complaints"></option>
+							  </datalist>
 							<input type="submit" placeholder="Search">
 						</form> 
 
-						<form method="post" action="/consumesearch">
+						<!-- <form method="post" action="/consumesearch">
 							{%csrf_token%}
 							<input type="text" name="consumernumber" placeholder="consumer number search">
 							<input type="submit" placeholder="Search">
-						</form> 
+						</form>  -->
 
 
 					</div>

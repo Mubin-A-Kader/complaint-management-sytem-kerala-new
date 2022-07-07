@@ -74,7 +74,7 @@ def pinsearch(request):
 def pinsearch2(request):
     if request.method =="POST":
         data = request.POST
-        pin = request.POST['pincode2']
+        pin = request.POST.get('pincode2')
         j = str(pin)
         myuser = Request.objects.filter(problem_description=j,category="Water authority")
         print("ok")

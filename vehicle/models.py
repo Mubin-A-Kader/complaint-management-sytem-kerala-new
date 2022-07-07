@@ -72,8 +72,8 @@ class Request(models.Model):
 
     vehicle_model = models.CharField(max_length=40,null=False)
     vehicle_brand = models.CharField(max_length=40,null=False)
-
-    problem_description = models.CharField(max_length=500,null=False)
+    prob = (('water leak','water leak'),('water shortage','water shortage'),('water change related','water change related'),('sewerage complaints','sewerage complaints'))
+    problem_description =models.CharField(max_length=50,choices=prob)
     date=models.DateField(auto_now=True)
     cost=models.PositiveIntegerField(null=True)
 

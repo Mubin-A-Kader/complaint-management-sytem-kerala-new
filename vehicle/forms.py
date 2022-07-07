@@ -54,9 +54,9 @@ class RequestForm(forms.ModelForm):
     class Meta:
         model=models.Request
         fields=['category','vehicle_no','vehicle_category','vehicle_model','vehicle_brand','problem_description']
-        widgets = {
-        'problem_description':forms.Textarea(attrs={'rows': 3, 'cols': 30})
-        }
+        # widgets = {
+        # 'problem_description':forms.Textarea(attrs={'rows': 3, 'cols': 30})
+        # }
 
 class AdminRequestForm(forms.Form):
     #to_field_name value will be stored when form is submitted.....__str__ method of customer model will be shown there in html
