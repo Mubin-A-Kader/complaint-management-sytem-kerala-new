@@ -15,7 +15,8 @@
 
 						<form method="post" action="/pinsearch2">
 							{%csrf_token%}
-							<datalist id="pincode" name="pincode">
+							<input type="text" name="pincode2" list="citynames">
+							<datalist id="citynames" >
 								<option value="water leak">
 								<option value="water shortage">
 								<option value="water change related">

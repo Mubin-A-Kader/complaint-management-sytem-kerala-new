@@ -491,13 +491,12 @@ def admin_request_view(request):
 
 @login_required(login_url='adminlogin')
 def admin_view_request_view(request):
-    enquiry=models.Request.objects.filter(category="KSEB").order_by('-id')
+    enquiry=models.Request.objects.filter(category="Water authority").order_by('-id')
     customers=[]
     for enq in enquiry:
         customer=models.Customer.objects.get(id=enq.customer_id)
         customers.append(customer)
     return render(request,'vehicle/admin_view_request.html',{'data':zip(customers,enquiry)})
-
 
 @login_required(login_url='adminlogin')
 def admin_view_request_view2(request):
@@ -510,7 +509,7 @@ def admin_view_request_view2(request):
 
 @login_required(login_url='mechaniclogin')
 def mechanic_view_request_view(request):
-    enquiry=models.Request.objects.filter(category="KSEB").order_by('-id')
+    enquiry=models.Request.objects.filter(category="Water authority").order_by('-id')
     customers=[]
     for enq in enquiry:
         customer=models.Customer.objects.get(id=enq.customer_id)
