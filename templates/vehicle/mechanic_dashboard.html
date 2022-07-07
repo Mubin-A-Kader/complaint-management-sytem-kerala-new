@@ -53,7 +53,6 @@
 					<th>House Number</th>
 					<th>Pincode</th>
 					<th>Problem Description</th>
-					<th>Update Status</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -65,8 +64,6 @@
 					<td>{{r.vehicle_model}}</td>
 					<td>{{r.vehicle_brand}}</td>
 					<td>{{r.problem_description}}</td>
-					<td>{{r.status}}</td>
-					<td><a  style="color:blue; text-decoration:none;font-size:25px;" href="{% url 'mechanic-update-status' r.id  %}">&#9998;</a></td>
 				</tr>
 				{% endfor %}
 		

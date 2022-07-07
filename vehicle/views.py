@@ -841,9 +841,9 @@ def customer_feedback_view(request):
 @login_required(login_url='mechaniclogin')
 @user_passes_test(is_mechanic)
 def mechanic_dashboard_view(request):
-    mechanic2=models.Mechanic.objects.get(user_id=request.user.id)
+    mechanic=models.Mechanic.objects.get(user_id=request.user.id)
     #enquiry=models.Request.objects.all().order_by('-id')
-    enquiry=models.Request.objects.filter(category="KSEB").order_by('-id')
+    enquiry=models.Request.objects.filter(category="Water authority").order_by('-id')
     customers=[]
     for enq in enquiry:
         #customer=models.Customer.objects.get(id=enq.customer_id)
@@ -867,7 +867,7 @@ def mechanic_dashboard_view(request):
 def mechanic_work_assigned_view(request):
     mechanic=models.Mechanic.objects.get(user_id=request.user.id)
     #works=models.Request.objects.all().filter(mechanic_id=mechanic.id)
-    works=models.Request.objects.all().filter(category="KSEB")
+    works=models.Request.objects.all().filter(category="Water authority")
     return render(request,'vehicle/mechanic_work_assigned.html',{'works':works,'mechanic':mechanic})
 
 @login_required(login_url='mechaniclogin2')
