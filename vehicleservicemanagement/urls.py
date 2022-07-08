@@ -25,7 +25,7 @@ urlpatterns = [
     path('mechaniclogin2', LoginView.as_view(template_name='vehicle/mechaniclogin2.html'),name='mechaniclogin2'),
     path('adminlogin', LoginView.as_view(template_name='vehicle/adminlogin.html'),name='adminlogin'),
 
-
+    path('mailsent',views.mailsent,name='mailsent'),
 
     path('admin-dashboard', views.admin_dashboard_view,name='admin-dashboard'),
 

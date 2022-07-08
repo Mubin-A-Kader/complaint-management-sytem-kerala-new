@@ -9,6 +9,7 @@ from django.db.models import Q
 from django.contrib.messages import constants as messages
 from .models import Mechanic2
 from .models import Request
+from django.core.mail import send_mail
 def home_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
@@ -59,7 +60,15 @@ def customer_signup_view(request):
             customer.save()
             my_customer_group = Group.objects.get_or_create(name='CUSTOMER')
             my_customer_group[0].user_set.add(user)
-        return HttpResponseRedirect('customerlogin')
+
+            subject = "Welcome to Our website!"
+            message =  "http://127.0.0.1:8000/customerlogin" +" "+  "please click here to verify"  
+            from_email = settings.EMAIL_HOST_USER
+            to_list = [user.email]
+            print(to_list)
+            send_mail(subject, message, from_email, to_list, fail_silently=True)
+
+        return HttpResponseRedirect('mailsent')
     return render(request,'vehicle/customersignup.html',context=mydict)
 
 def pinsearch(request):
@@ -70,7 +79,8 @@ def pinsearch(request):
         myuser = Request.objects.filter(vehicle_brand=j,category="KSEB")
         print("ok")
         return render(request,'vehicle/mechanic_work_assigned_search.html',{'myuser':myuser})
-
+def mailsent(request):
+    return render(request,'vehicle/emailsent.html')
 def pinsearch2(request):
     if request.method =="POST":
         data = request.POST
