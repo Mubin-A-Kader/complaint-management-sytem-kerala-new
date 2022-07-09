@@ -380,14 +380,14 @@ def admin_add_mechanic_view(request):
         userForm=forms.MechanicUserForm(request.POST)
         mechanicForm=forms.MechanicForm(request.POST,request.FILES)
         mechanicSalary=forms.MechanicSalaryForm(request.POST)
-        if userForm.is_valid() and mechanicForm.is_valid() and mechanicSalary.is_valid():
+        if userForm.is_valid() and mechanicForm.is_valid():
             user=userForm.save()
             user.set_password(user.password)
             user.save()
             mechanic=mechanicForm.save(commit=False)
             mechanic.user=user
             mechanic.status=True
-            mechanic.salary=mechanicSalary.cleaned_data['salary']
+            
             mechanic.save()
             my_mechanic_group = Group.objects.get_or_create(name='MECHANIC')
             my_mechanic_group[0].user_set.add(user)

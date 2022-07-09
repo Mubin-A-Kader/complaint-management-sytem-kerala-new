@@ -47,11 +47,11 @@ Latest commit 2ebe03c 5 days ago
 							<thead>
                 <tr>
                   <th>Name</th>
-                  <th>Profile Picture</th>
+                  
                   <th>Mobile</th>
                   <th>Address</th>
                   <th>Skills</th>
-                  <th>Salary</th>
+                  
                   <th>Update</th>
                   <th>Delete</th>
                 </tr>
@@ -60,7 +60,7 @@ Latest commit 2ebe03c 5 days ago
               {% for m in mechanics %}
                 <tr>
                   <td> {{m.get_name}}</td>
-                  <td> <img src="{% static profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+            
                   <td>{{m.mobile}}</td>
                   <td>{{m.address}}</td>
                   <td>{{m.skill}}</td>
