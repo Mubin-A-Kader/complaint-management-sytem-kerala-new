@@ -26,7 +26,7 @@ class Mechanic(models.Model):
     district = models.CharField(max_length=50,choices=dis)
     salary=models.PositiveIntegerField(null=True)
     status=models.BooleanField(default=False)
-    work_name = (('KSEB','KSEB'),('Other','Other'))
+    work_name = (('Engineer','Engineer'),('Other','Other'))
     work_category=models.CharField(max_length=50,choices=work_name)
 
     @property

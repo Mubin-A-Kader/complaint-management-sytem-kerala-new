@@ -74,11 +74,15 @@ def customer_signup_view(request):
 def pinsearch(request):
     if request.method =="POST":
         data = request.POST
-        pin = request.POST['pincode']
+        pin = request.POST.get('pincode2')
         j = str(pin)
-        myuser = Request.objects.filter(vehicle_brand=j,category="KSEB")
+        myuser = Request.objects.filter(problem_description=j,category="Water authority")
         print("ok")
         return render(request,'vehicle/mechanic_work_assigned_search.html',{'myuser':myuser})
+        
+    else:
+        print("not ok")
+        return render(request,'vehicle/mechanicbase.html')
 def mailsent(request):
     return render(request,'vehicle/emailsent.html')
 def pinsearch2(request):
@@ -92,7 +96,7 @@ def pinsearch2(request):
         
     else:
         print("not ok")
-        return render(request,'vehicle/adminbase.html')
+        return render(request,'vehicle/mechanicbase2.html')
 def consumesearch(request):
     if request.method =="POST":
         data = request.POST
