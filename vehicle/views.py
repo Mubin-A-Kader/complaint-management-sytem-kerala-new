@@ -60,15 +60,8 @@ def customer_signup_view(request):
             customer.save()
             my_customer_group = Group.objects.get_or_create(name='CUSTOMER')
             my_customer_group[0].user_set.add(user)
-
-            subject = "Welcome to Our website!"
-            message =  "http://127.0.0.1:8000/customerlogin" +" "+  "please click here to verify"  
-            from_email = settings.EMAIL_HOST_USER
-            to_list = [user.email]
-            print(to_list)
-            send_mail(subject, message, from_email, to_list, fail_silently=True)
-
-        return HttpResponseRedirect('mailsent')
+            print("hello")
+        return render(request,'vehicle/index.html')
     return render(request,'vehicle/customersignup.html',context=mydict)
 
 def pinsearch(request):
